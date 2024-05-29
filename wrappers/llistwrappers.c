@@ -1,7 +1,7 @@
 #include <stdlib.h>
 
-#include "llistcore.h"
-#include "llistwrappers.h"
+#include "../include/llistcore.h"
+#include "../include/llistwrappers.h"
 
 
 

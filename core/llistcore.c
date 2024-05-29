@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "llistcore.h"
+#include "../include/llistcore.h"
 
 
 llnode* init_llnode(const void* const dataptr, const size_t datalen)

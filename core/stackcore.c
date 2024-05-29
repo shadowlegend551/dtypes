@@ -63,7 +63,7 @@ void* push(Stack* stack, BYTE* data_pointer, int data_length)
 
     stack->used_size = new_size;
 
-    return 1;
+    return NULL;
 }
 
 
