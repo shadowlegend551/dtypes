@@ -3,6 +3,7 @@
 
 #include "llistcore.h"
 
+
 llnode* init_llnode(const void* const dataptr, const size_t datalen)
 {
     llnode* nodeptr = malloc(sizeof(llnode));
