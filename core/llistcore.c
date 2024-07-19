@@ -66,6 +66,7 @@ void* llgetatindex(const llnode* rootnode, size_t datasize, int index)
     return rootnode->dataptr;
 }
 
+
 void llistdelete(llnode* rootnode)
 {
     if (rootnode->next) {
@@ -73,6 +74,15 @@ void llistdelete(llnode* rootnode)
         rootnode->next = NULL;
     }
     free(rootnode);
-    
+
+}
+
+
+int llappend(llnode* rootnode, const void* dataptr, const size_t datasize)
+{
+    while(rootnode->next) { rootnode = rootnode->next; }
+
+    rootnode->next = init_llnode(dataptr, datasize);
+    return rootnode->next ? 1 : 0;
 }
 

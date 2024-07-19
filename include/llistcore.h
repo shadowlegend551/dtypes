@@ -14,14 +14,15 @@ typedef struct llnode
 
 } llnode;
 
-llnode* init_llnode(const void* const dataptr,
-                    const size_t datalen);
+llnode* init_llnode(const void* const dataptr, const size_t datalen);
 
 int llistlen(const llnode* rootnode);
 
 llnode* llnodeatindex(const llnode* rootnode, int i);
 
 void* llgetatindex(const llnode* rootnode, size_t datasize, int index);
+
+int llappend(llnode* rootnode, const void* dataptr, const size_t datasize);
 
 #endif
 
