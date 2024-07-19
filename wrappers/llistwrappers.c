@@ -4,20 +4,6 @@
 #include "../include/llistwrappers.h"
 
 
-
-
-/*-----------------------------------------------------┐
-|     Appending functions for different datatypes.     |
-└-----------------------------------------------------*/
-
-/*int llappend(llnode* rootnode, const void* dataptr, const size_t datasize)
-{
-    while(rootnode->next) { rootnode = rootnode->next; }
-
-    rootnode->next = init_llnode(dataptr, datasize);
-    return rootnode->next ? 1 : 0;
-}
-*/
 int llappendint(const llnode* rootnode, int data)
 {
     // Copy data to heap so it doesn't go out of scope.
