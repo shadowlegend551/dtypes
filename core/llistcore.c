@@ -50,7 +50,7 @@ llnode* llnodeatindex(const llnode* rootnode, int i)
 
 void* llgetatindex(const llnode* rootnode, size_t datasize, int index)
 {
-    if(index+1 > llistlen(rootnode))
+    if(index+1 > lllen(rootnode))
     {
         fprintf(stderr,
                 "Index error: Index %d of linked list out of bounds.\n",
