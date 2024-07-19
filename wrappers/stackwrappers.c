@@ -1,12 +1,11 @@
-#include <stdlib.h>
+//#include <stdlib.h>
 
-#include "../include/stackcore.h"
-#include "../include/stackwrappers.h"
+//#include "../include/stackcore.h"
+//#include "../include/stackwrappers.h"
 
 
 /*---------------------------------------------------┐
 |     Pushing functions for different datatypes.     |
 └---------------------------------------------------*/
 
-int stackappend
-
+//int stackappend

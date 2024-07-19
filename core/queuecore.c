@@ -13,7 +13,7 @@ Queue init_queue(int QUEUE_MAX_SIZE)
         printf("Invalid queue size: %d. Exiting...\n", QUEUE_MAX_SIZE);
         exit(1);
     }
-    
+
     Queue new_queue;
 
     new_queue.MAX_SIZE = QUEUE_MAX_SIZE
@@ -45,7 +45,7 @@ int delete_queue(Queue* queue)
 }
 
 
-void* push(Queue* queue, BYTE* data_pointer, int data_length)
+void* qpush(Queue* queue, BYTE* data_pointer, int data_length)
 {
     int new_size = queue->used_size + data_length;
     
@@ -85,7 +85,7 @@ void* push(Queue* queue, BYTE* data_pointer, int data_length)
 }
 
 
-void* pop(Queue* queue, int data_length)
+void* qpop(Queue* queue, int data_length)
 {
     BYTE* data;
     if(!queue || !(data = malloc(sizeof(BYTE)*data_length)))

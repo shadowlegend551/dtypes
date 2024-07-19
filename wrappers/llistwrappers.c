@@ -10,7 +10,7 @@
 |     Appending functions for different datatypes.     |
 └-----------------------------------------------------*/
 
-int llappend(llnode* rootnode, const void* dataptr, const size_t datasize)
+/*int llappend(llnode* rootnode, const void* dataptr, const size_t datasize)
 {
     while(rootnode->next) { rootnode = rootnode->next; }
 
@@ -57,7 +57,7 @@ int llappendchar(const llnode* rootnode, char data)
 
     llappend(rootnode, dataptr, CHAR_SIZE);
     return 1;
-}
+}*/
 
 
 /*-----------------------------------------------------┐

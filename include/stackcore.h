@@ -27,10 +27,10 @@ Stack init_stack(int STACK_MAX_SIZE);
 int delete_stack(Stack* stack);
 
 // Pushes data_length bytes from pointer data on to stack.
-void* push(Stack* stack, BYTE* data, int data_length);
+void* spush(Stack* stack, BYTE* data, int data_length);
 
 // Pops data_length bytes from top of stack.
-void* pop(Stack* stack, int data_length);
+void* spop(Stack* stack, int data_length);
 
 #endif
 

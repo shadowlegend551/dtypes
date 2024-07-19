@@ -46,7 +46,7 @@ int delete_stack(Stack* stack)
 }
 
 
-void* push(Stack* stack, BYTE* data_pointer, int data_length)
+void* spush(Stack* stack, BYTE* data_pointer, int data_length)
 {
     int new_size = stack->used_size + data_length;
     
@@ -67,7 +67,7 @@ void* push(Stack* stack, BYTE* data_pointer, int data_length)
 }
 
 
-void* pop(Stack* stack, int data_length)
+void* spop(Stack* stack, int data_length)
 {
 
     BYTE* data;
