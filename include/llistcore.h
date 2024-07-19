@@ -16,7 +16,7 @@ typedef struct llnode
 
 llnode* init_llnode(const void* const dataptr, const size_t datalen);
 
-int llistlen(const llnode* rootnode);
+int lllen(const llnode* rootnode);
 
 llnode* llnodeatindex(const llnode* rootnode, int i);
 

@@ -17,7 +17,7 @@ llnode* init_llnode(const void* const dataptr, const size_t datalen)
 }
 
 
-int llistlen(const llnode* rootnode)
+int lllen(const llnode* rootnode)
 {
     // Length is 0 if list doesn't exist;
     if(!rootnode) { return 0; }
@@ -67,10 +67,10 @@ void* llgetatindex(const llnode* rootnode, size_t datasize, int index)
 }
 
 
-void llistdelete(llnode* rootnode)
+void lldelete(llnode* rootnode)
 {
     if (rootnode->next) {
-        llistdelete(rootnode->next);
+        lldelete(rootnode->next);
         rootnode->next = NULL;
     }
     free(rootnode);

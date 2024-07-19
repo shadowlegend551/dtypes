@@ -17,7 +17,7 @@
     rootnode->next = init_llnode(dataptr, datasize);
     return rootnode->next ? 1 : 0;
 }
-
+*/
 int llappendint(const llnode* rootnode, int data)
 {
     // Copy data to heap so it doesn't go out of scope.
@@ -57,7 +57,7 @@ int llappendchar(const llnode* rootnode, char data)
 
     llappend(rootnode, dataptr, CHAR_SIZE);
     return 1;
-}*/
+}
 
 
 /*-----------------------------------------------------┐
