@@ -46,6 +46,15 @@ def main():
                 file.write(block.replace('<t>', t))
                 file.write('\n')
 
+    # Get function signatures for header file.
+    signatures = []
+    for function in template_list:
+        function = list(function)
+        signature = ''
+        while function[0] != '{':
+            signature += function.pop(0)
+        signatures.append(signature.strip())
+    
 
 if __name__ == '__main__':
     exit_message = main()
