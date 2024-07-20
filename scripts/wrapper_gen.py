@@ -8,19 +8,25 @@ import sys
 def main():
     if not os.path.isdir('include'):
         return 'No folder called include.'
+    print('Found include folder.')
+
     if not os.path.isdir('wrappers'):
         return 'No folder called wrappers.'
+    print('Found wrapper folder.')
 
     args = sys.argv[1:]
-    if len(args) < 3:
-        return 'Too few arguments'
+    if len(args) != 3:
+        return f'Invalid amount of arguments. Excpected 3, got {len(args)}.'
 
     type_name = args.pop(0)
+    print(f'Type name is: {type_name}.')
 
     # Read the template file.
     template_file = 'scripts/templates/' + args.pop(0)
     if not os.path.isfile(template_file):
         return f'No template file "{template_file}"'
+    print(f'Found template file: {template_file}.')
+
     with open(template_file, 'r') as file:
         template_list = [x.strip() for x in file.read().split('###')]
     header = template_list.pop(0)
@@ -28,24 +34,35 @@ def main():
     # Read the type file.
     type_file = 'scripts/' + args.pop(0)
     if not os.path.isfile(type_file):
-        return 'No type file "{type_file}"'
+        return f'No type file "{type_file}"'
+    print(f'Found type file: {type_file}.')
+
     with open(type_file, 'r') as file:
         types = [x for x in file.read().split('\n') if x != '']
 
     # Write the c file.
     cfile = 'wrappers/'+type_name+'wrappers.c'
     with open(cfile, 'w') as file:
+        print(f'Started writing file: {cfile}.')
         file.write('// This file was automatically generated.\n\n')
         if header != '':
+            print('Writing header...')
             file.write(header)
             file.write('\n')
+        else:
+            print('No header specified, skipping...')
+
+        print('Writing functions...')
         for block in template_list:
             for t in types:
                 file.write(block.replace('<t>', t))
                 file.write('\n')
 
+    print(f'Finished writing file: {cfile}.')
+
     # Get function signatures for header file.
     signatures = []
+    print('Getting function signature templates...')
     for function in template_list:
         function = list(function)
         signature = ''
@@ -56,6 +73,7 @@ def main():
     # Write the header file.
     hfile = 'include/'+type_name+'wrappers.h'
     with open(hfile, 'w') as file:
+        print(f'Started writing file: {hfile}.')
         file.write('// This file was automatically generated.\n\n')
         file.write(f'#ifndef {type_name.upper()}_WRAPPERS_H\n')
         file.write(f'#define {type_name.upper()}_WRAPPERS_H\n')
@@ -65,7 +83,9 @@ def main():
                 file.write(signature.replace('<t>', t)+';\n')
         file.write('#endif')
 
-    return 'creation successful'
+    print(f'Finished writing file: {hfile}.')
+
+    return 'Creation successful!'
 
 if __name__ == '__main__':
     exit_message = main()
