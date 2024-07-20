@@ -1,18 +1,15 @@
-#ifndef LLIST_H
-#define LLIST_H
+// This file was automatically generated.
 
-// llappend versions for primitive datatypes.
+#ifndef LLIST_WRAPPERS_H
+#define LLIST_WRAPPERS_H
 int llappendint(const llnode* rootnode, int data);
+int llappendchar(const llnode* rootnode, char data);
 int llappendfloat(const llnode* rootnode, float data);
 int llappenddouble(const llnode* rootnode, double data);
-int llappendchar(const llnode* rootnode, char data);
-
-
-// Returns data stored at index i in linked list.
+int llappendptr(const llnode* rootnode, ptr data);
 int llgetint(const llnode* rootnode, int i);
+char llgetchar(const llnode* rootnode, int i);
 float llgetfloat(const llnode* rootnode, int i);
 double llgetdouble(const llnode* rootnode, int i);
-char llgetchar(const llnode* rootnode, int i);
-
+void* llgetptr(const llnode* rootnode, int i);
 #endif
-

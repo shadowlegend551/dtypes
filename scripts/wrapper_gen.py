@@ -55,7 +55,7 @@ def main():
         print('Writing functions...')
         for block in template_list:
             for t in types:
-                file.write(block.replace('<t>', t))
+                file.write(block.replace('<t>', t).replace('<T>', t.upper()))
                 file.write('\n')
 
     print(f'Finished writing file: {cfile}.')
@@ -80,7 +80,7 @@ def main():
 
         for signature in signatures:
             for t in types:
-                file.write(signature.replace('<t>', t)+';\n')
+                file.write(signature.replace('<t>', t).replace('<T>', t.upper())+';\n')
         file.write('#endif')
 
     print(f'Finished writing file: {hfile}.')
