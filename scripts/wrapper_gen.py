@@ -34,15 +34,13 @@ def main():
 
     # Write the c file.
     cfile = 'wrappers/'+type_name+'wrappers.c'
-    print(cfile)
     with open(cfile, 'w') as file:
+        file.write('// This file was automatically generated.\n\n')
         if header != '':
             file.write(header)
-            file.write('\n\n')
+            file.write('\n')
         for block in template_list:
-            print('CURRENT_BLOCK: ', block)
             for t in types:
-                print('CURRENT_TYPE: ', t)
                 file.write(block.replace('<t>', t))
                 file.write('\n')
 
@@ -54,7 +52,20 @@ def main():
         while function[0] != '{':
             signature += function.pop(0)
         signatures.append(signature.strip())
-    
+
+    # Write the header file.
+    hfile = 'include/'+type_name+'wrappers.h'
+    with open(hfile, 'w') as file:
+        file.write('// This file was automatically generated.\n\n')
+        file.write(f'#ifndef {type_name.upper()}_WRAPPERS_H\n')
+        file.write(f'#define {type_name.upper()}_WRAPPERS_H\n')
+
+        for signature in signatures:
+            for t in types:
+                file.write(signature.replace('<t>', t)+';\n')
+        file.write('#endif')
+
+    return 'creation successful'
 
 if __name__ == '__main__':
     exit_message = main()
