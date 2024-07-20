@@ -12,5 +12,6 @@ Create template files in scripts/templates-folder. Run the template generation s
 * The file has the functions separated with ###.
 * The first section is considered a header, that is pasted to the beginning of the resulting .c file. You can put macros, includes and such there. If you don't need it, begin the file with "###".
 * \<t> is a placeholder for type name.
+* \<T> is a placeholder for type name in upper case.
 * See `example.tpl` for an example.
 
