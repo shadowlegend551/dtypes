@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "../../include/stackcore.h"
+#include "../include/stackcore.h"
 
 #define DEFAULT_MAX_SIZE 2048
 

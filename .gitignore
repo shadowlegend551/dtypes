@@ -1,4 +1,3 @@
-bin/*
-!bin/.gitkeep
-build/*
-!build/.gitkeep
+bin/main
+build/*.o
+

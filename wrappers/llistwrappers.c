@@ -1,7 +1,7 @@
 #include <stdlib.h>
 
-#include "../../include/llistcore.h"
-#include "../../include/llistwrappers.h"
+#include "../include/llistcore.h"
+#include "../include/llistwrappers.h"
 
 
 int llappendint(const llnode* rootnode, int data)
