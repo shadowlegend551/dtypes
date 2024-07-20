@@ -1,8 +1,12 @@
+#include <stdio.h>
+
 ###
 
-int printhello(char* target)
+<t> printhello(char* target)
 {
     printf("Hello %s!", target);
+
+    return 1;
 }
 
 
@@ -10,9 +14,9 @@ int printhello(char* target)
 ###     
 
 
-void printnormalhello(void)
+void print<t>hello(void)
 {
-    printf("Hello!");
+    printf("Hello <t>!");
 }
 
 
