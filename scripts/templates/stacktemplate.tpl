@@ -12,7 +12,7 @@ void* spush<t>(Stack* stack, <t> data)
     if(!dataptr) { return 0; }
     *dataptr = data;
 
-    spush(stack, dataptr, <T>_SIZE)
+    spush(stack, dataptr, <T>_SIZE);
     return 1;
 }
 
