@@ -41,9 +41,9 @@ int llappenddouble(const llnode* rootnode, double data)
 }
 int llappendptr(const llnode* rootnode, void* data)
 {
-    void* dataptr = malloc(PTR_SIZE);
+    void** dataptr = malloc(PTR_SIZE);
     if(!dataptr) { return 0; }
-    dataptr = data;
+    *dataptr = data;
 
     llappend(rootnode, dataptr, PTR_SIZE);
     return 1;
