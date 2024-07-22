@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "../include/llistcore.h"
 
@@ -9,7 +10,12 @@ llnode* init_llnode(const void* const dataptr, const size_t datalen)
     llnode* nodeptr = malloc(sizeof(llnode));
     if(!nodeptr) { return NULL; }
 
-    nodeptr->dataptr = dataptr;
+
+
+    nodeptr->dataptr = malloc(datalen);
+    if(!nodeptr->dataptr) { return NULL; }
+    memcpy(nodeptr->dataptr, dataptr, datalen);
+
     nodeptr->datalen = datalen;
     nodeptr->next = NULL;
 
