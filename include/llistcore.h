@@ -14,7 +14,16 @@ typedef struct llnode
 
 } llnode;
 
-llnode* init_llnode(const void* const dataptr, const size_t datalen);
+typedef struct llist
+{
+    int len;
+    llnode* head;
+    llnode* tail;
+} llist;
+
+llnode* init_llnode(void* dataptr, size_t datalen);
+
+llist* init_llist(void);
 
 int lllen(const llnode* rootnode);
 

@@ -5,12 +5,10 @@
 #include "../include/llistcore.h"
 
 
-llnode* init_llnode(const void* const dataptr, const size_t datalen)
+llnode* init_llnode(void* dataptr, size_t datalen)
 {
     llnode* nodeptr = malloc(sizeof(llnode));
     if(!nodeptr) { return NULL; }
-
-
 
     nodeptr->dataptr = malloc(datalen);
     if(!nodeptr->dataptr) { return NULL; }
@@ -20,6 +18,19 @@ llnode* init_llnode(const void* const dataptr, const size_t datalen)
     nodeptr->next = NULL;
 
     return nodeptr;
+}
+
+
+llist* init_llist(void)
+{
+    llist* new_llist = malloc(sizeof(llist));
+    if(!new_llist) { return NULL; }
+
+    new_llist->len = 0;
+    new_llist->head = NULL;
+    new_llist->tail = NULL;
+
+    return new_llist;
 }
 
 
