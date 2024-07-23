@@ -25,13 +25,15 @@ llnode* init_llnode(void* dataptr, size_t datalen);
 
 llist* init_llist(void);
 
-int lllen(const llnode* rootnode);
+int lllen(llist* list);
 
-llnode* llnodeatindex(const llnode* rootnode, int i);
+llnode* llnodeatindex(llist* list, int i);
 
-void* llgetatindex(const llnode* rootnode, size_t datasize, int index);
+void* llgetpointeratindex(llist* list, int index);
 
-int llappend(llnode* rootnode, const void* dataptr, const size_t datasize);
+void deletellist(llist* list);
+
+int llappend(llist* list, void* dataptr, size_t datasize);
 
 #endif
 

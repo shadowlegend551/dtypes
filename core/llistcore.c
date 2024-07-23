@@ -10,13 +10,10 @@ llnode* init_llnode(void* dataptr, size_t datalen)
     llnode* nodeptr = malloc(sizeof(llnode));
     if(!nodeptr) { return NULL; }
 
-    nodeptr->dataptr = malloc(datalen);
-    if(!nodeptr->dataptr) { return NULL; }
-    memcpy(nodeptr->dataptr, dataptr, datalen);
+    nodeptr->dataptr = dataptr;
 
     nodeptr->datalen = datalen;
     nodeptr->next = NULL;
-
     return nodeptr;
 }
 
@@ -34,72 +31,80 @@ llist* init_llist(void)
 }
 
 
-int lllen(const llnode* rootnode)
+int lllen(llist* list)
 {
-    // Length is 0 if list doesn't exist;
-    if(!rootnode) { return 0; }
-
-    int len = 0;
-
-    while(rootnode->next)
-    {
-        len++;
-        rootnode = rootnode->next;
-    }
-    len++;  // Add last index with next = NULL to length.
-
-    return len;
+    return list->len;
 }
 
 
-llnode* llnodeatindex(const llnode* rootnode, int i)
+llnode* llnodeatindex(llist* list, int i)
 {
+    llnode* node = list->head;
     for(;i > 0; i--)
     {
         // Index error.
-        if(!rootnode) { return NULL; }
-        rootnode = rootnode->next;
+        if(!node) { return NULL; }
+        node = node->next;
     }
 
-    return rootnode;
+    return node;
 }
 
 
-void* llgetatindex(const llnode* rootnode, size_t datasize, int index)
+void* llgetpointeratindex(llist* list, int index)
 {
-    if(index+1 > lllen(rootnode))
+    if(index+1>list->len) { return NULL; }
+    llnode* node = list->head;
+
+    for(int i = 0; i < index; i++)
     {
-        fprintf(stderr,
-                "Index error: Index %d of linked list out of bounds.\n",
-                index);
-        exit(1);
+        node = node->next;
     }
+    return node->dataptr;
+}
 
-    for(int i = index; i > 0; i--)
+
+void deletenodes(llnode* node)
+{
+    if(node->next)
     {
-        rootnode = rootnode->next;
+        deletenodes(node->next);
     }
 
-    return rootnode->dataptr;
+    free(node);
 }
 
 
-void lldelete(llnode* rootnode)
+void deletellist(llist* list)
 {
-    if (rootnode->next) {
-        lldelete(rootnode->next);
-        rootnode->next = NULL;
-    }
-    free(rootnode);
-
+    deletenodes(list->head);
+    free(list);
 }
 
 
-int llappend(llnode* rootnode, const void* dataptr, const size_t datasize)
+int llappend(llist* list, void* dataptr, size_t datasize)
 {
-    while(rootnode->next) { rootnode = rootnode->next; }
+    if(!dataptr) { return 1; }
 
-    rootnode->next = init_llnode(dataptr, datasize);
-    return rootnode->next ? 1 : 0;
+    void* data = malloc(datasize);
+    memcpy(data, dataptr, datasize);
+    llnode* new_node = init_llnode(data, datasize);
+    switch(list->len)
+    {
+    // Empty list.
+    case 0:
+        list->tail = new_node;
+        list->head = new_node;
+        break; 
+
+    // Non-empty list.
+    default:
+        (list->tail)->next = new_node;
+        list->tail = new_node;
+        break;
+    }
+
+    list->len++;
+    return 0;
 }
 
