@@ -5,27 +5,24 @@
 #include "../include/llistcore.h"
 
 
-llnode* init_llnode(void* dataptr, size_t datalen)
+llistnode new_llnode(void* data)
 {
-    llnode* nodeptr = malloc(sizeof(llnode));
-    if(!nodeptr) { return NULL; }
+    llistnode new_node;
+    new_node.data = data;
+    new_node.next = NULL;
 
-    nodeptr->dataptr = dataptr;
-
-    nodeptr->datalen = datalen;
-    nodeptr->next = NULL;
-    return nodeptr;
+    return new_node;
 }
 
 
-llist* init_llist(void)
+llist new_llist(size_t item_size)
 {
-    llist* new_llist = malloc(sizeof(llist));
-    if(!new_llist) { return NULL; }
+    llist new_llist;
 
-    new_llist->len = 0;
-    new_llist->head = NULL;
-    new_llist->tail = NULL;
+    new_llist.item_size = item_size;
+    new_llist.len = 0;
+    new_llist.head = NULL;
+    new_llist.tail = NULL;
 
     return new_llist;
 }
@@ -37,34 +34,26 @@ int lllen(llist* list)
 }
 
 
-llnode* llnodeatindex(llist* list, int i)
+void* llgetindex(llist* list, int index)
 {
-    llnode* node = list->head;
-    for(;i > 0; i--)
-    {
-        // Index error.
-        if(!node) { return NULL; }
-        node = node->next;
-    }
-
-    return node;
-}
-
-
-void* llgetpointeratindex(llist* list, int index)
-{
-    if(index+1>list->len) { return NULL; }
-    llnode* node = list->head;
+    if(index+1 > list->len) { return NULL; }
+    llistnode* node = list->head;
 
     for(int i = 0; i < index; i++)
     {
         node = node->next;
     }
-    return node->dataptr;
+
+    int item_size = list->item_size;
+    void* data = malloc(item_size);
+    if(!data) { return NULL; }
+    memcpy(data, node->data, item_size);
+
+    return data;
 }
 
 
-void deletenodes(llnode* node)
+void deletenodes(llistnode* node)
 {
     if(node->next)
     {
@@ -82,29 +71,33 @@ void deletellist(llist* list)
 }
 
 
-int llappend(llist* list, void* dataptr, size_t datasize)
+int llappend(llist* list, void* data)
 {
-    if(!dataptr) { return 1; }
+    if(!list || !data) { return 1; }
+    size_t item_size = list->item_size;
 
-    void* data = malloc(datasize);
-    memcpy(data, dataptr, datasize);
-    llnode* new_node = init_llnode(data, datasize);
+    void* new_data = malloc(item_size);
+    if(!new_data) { return 1; }
+    memcpy(new_data, data, item_size);
+
+    llistnode* new_node = malloc(sizeof(llistnode));
+    if(!new_node) {free(new_data); return 1; }
+    *new_node = new_llnode(new_data);
+
     switch(list->len)
     {
-    // Empty list.
     case 0:
-        list->tail = new_node;
         list->head = new_node;
-        break; 
+        break;
 
-    // Non-empty list.
     default:
-        (list->tail)->next = new_node;
-        list->tail = new_node;
+        list->tail->next = new_node;
         break;
     }
+    list->tail = new_node;
 
     list->len++;
     return 0;
+
 }
 

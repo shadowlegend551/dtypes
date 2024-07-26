@@ -3,37 +3,34 @@
 
 #include "typesize.h"
 
-typedef struct llnode llnode;
+typedef struct llistnode llistnode;
 
-typedef struct llnode
+typedef struct llistnode
 {
-    void* dataptr;
-    size_t datalen;
+    void* data;
+    llistnode* next;
 
-    llnode* next;
-
-} llnode;
+} llistnode;
 
 typedef struct llist
 {
+    size_t item_size;
+
     int len;
-    llnode* head;
-    llnode* tail;
+    llistnode* head;
+    llistnode* tail;
+
 } llist;
 
-llnode* init_llnode(void* dataptr, size_t datalen);
-
-llist* init_llist(void);
+llist new_llist(size_t item_size);
 
 int lllen(llist* list);
 
-llnode* llnodeatindex(llist* list, int i);
-
-void* llgetpointeratindex(llist* list, int index);
+void* llgetindex(llist* list, int index);
 
 void deletellist(llist* list);
 
-int llappend(llist* list, void* dataptr, size_t datasize);
+int llappend(llist* list, void* data);
 
 #endif
 

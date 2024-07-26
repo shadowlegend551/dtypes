@@ -5,25 +5,24 @@
 
 int main()
 {
-    llist* list = init_llist();
+    llist list = new_llist(sizeof(int));
     int i = 9;
     int* data;
 
-    llappend(list, &i, sizeof(int));
+    llappend(&list, &i);
     i--;
-    llappend(list, &i, sizeof(int));
+    llappend(&list, &i);
     i--;
-    llappend(list, &i, sizeof(int));
+    llappend(&list, &i);
 
-    data = llgetpointeratindex(list, 0);
+    data = llgetindex(&list, 0);
     printf("%d\n", *data);
-    data = llgetpointeratindex(list, 1);
-    printf("%d\n", *data);
-    data = llgetpointeratindex(list, 2);
-    printf("%d\n", *data);
-    llnode* node = llnodeatindex(list, 2);
-    printf("%d\n", *(int*)(node->dataptr));
 
+    data = llgetindex(&list, 1);
+    printf("%d\n", *data);
+
+    data = llgetindex(&list, 2);
+    printf("%d\n", *data);
 
     return 0;
 }
