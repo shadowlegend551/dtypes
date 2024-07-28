@@ -36,20 +36,88 @@ int lllen(llist* list)
 
 void* llgetindex(llist* list, int index)
 {
-    if(index+1 > list->len) { return NULL; }
+    if(list->len < index+1) { return NULL; }
     llistnode* node = list->head;
 
+    int item_size = list->item_size;
+    void* data = malloc(item_size);
+    if(!data) { return NULL; }
+ 
     for(int i = 0; i < index; i++)
     {
         node = node->next;
     }
 
-    int item_size = list->item_size;
-    void* data = malloc(item_size);
-    if(!data) { return NULL; }
     memcpy(data, node->data, item_size);
-
     return data;
+}
+
+
+int lldeleteindex(llist* list, int index)
+{
+    if(list->len < index+1) { return 1; }
+    llistnode* node = list->head;
+
+    switch(index)
+    {
+    case 0:
+        list->head = node->next;
+        free(node);
+        break;
+
+    default:
+        // Find the node before the node to delete.
+        for(int i = 0; i < index-1; i++)
+        {
+            node = node->next;
+        }
+        llistnode* node_to_delete = node->next;
+        node->next = node_to_delete->next;
+        free(node_to_delete);
+
+        // If the last cell was deleted, change list->tail.
+        if(list->len == index+1)
+        {
+            list->tail = node;
+        }
+    }
+
+    return 0;
+}
+
+
+int llinsert(llist* list, void* data, int index)
+{
+    if(!list || !data || list->len < index+1) { return 1; }
+
+    int item_size = list->item_size;
+    void* new_data = malloc(item_size);
+    if(!new_data) { return 1; }
+    memcpy(new_data, data, item_size);
+
+    llistnode* new_node = malloc(sizeof(llistnode));
+
+    switch(index)
+    {
+    case 0:
+        new_node->next = list->head;
+        list->head = new_node;
+        break;
+
+    default:
+        llistnode* previous_node = list->head;
+        for(int i = 1; i < index; i++)
+        {
+            previous_node = previous_node->next;
+        }
+
+        new_node->next = previous_node->next;
+        previous_node->next = new_node;
+    }
+
+    new_node->data = new_data;
+    list->len++;
+    return 0;
 }
 
 

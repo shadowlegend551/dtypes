@@ -3,6 +3,17 @@
 #include "../include/llistcore.h"
 
 
+void print_llist(llist* list)
+{
+    llistnode* node = list->head;
+    while(node)
+    {
+        printf("%d\n", *(int*)node->data);
+        node = node->next;
+    }
+}
+
+
 int main()
 {
     llist list = new_llist(sizeof(int));
@@ -13,16 +24,11 @@ int main()
     i--;
     llappend(&list, &i);
     i--;
-    llappend(&list, &i);
+    llinsert(&list, &i, 1);
 
-    data = llgetindex(&list, 0);
-    printf("%d\n", *data);
+    lldeleteindex(&list, 2);
 
-    data = llgetindex(&list, 1);
-    printf("%d\n", *data);
-
-    data = llgetindex(&list, 2);
-    printf("%d\n", *data);
+    print_llist(&list);
 
     return 0;
 }

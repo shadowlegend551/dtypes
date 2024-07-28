@@ -28,6 +28,10 @@ int lllen(llist* list);
 
 void* llgetindex(llist* list, int index);
 
+int lldeleteindex(llist* list, int index);
+
+int llinsert(llist* list, void* data, int index);
+
 void deletellist(llist* list);
 
 int llappend(llist* list, void* data);
