@@ -4,6 +4,15 @@
 
 #include "../include/llistcore.h"
 
+typedef struct llistnode llistnode;
+
+typedef struct llistnode
+{
+    void* data;
+    llistnode* next;
+
+} llistnode;
+
 
 llistnode new_llnode(void* data)
 {
@@ -81,6 +90,8 @@ int lldeleteindex(llist* list, int index)
             list->tail = node;
         }
     }
+
+    list->len--;
 
     return 0;
 }

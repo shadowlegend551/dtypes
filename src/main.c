@@ -5,17 +5,17 @@
 
 void print_llist(llist* list)
 {
-    llistnode* node = list->head;
-    while(node)
+    printf("%d\n", lllen(list));
+    for(int i = 0; i < list->len; i++)
     {
-        printf("%d\n", *(int*)node->data);
-        node = node->next;
+        printf("%d\n", *(int*)llgetindex(list, i));
     }
 }
 
 
 int main()
 {
+    llistnode* node;
     llist list = new_llist(sizeof(int));
     int i = 9;
     int* data;

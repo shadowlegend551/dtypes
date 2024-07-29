@@ -5,13 +5,6 @@
 
 typedef struct llistnode llistnode;
 
-typedef struct llistnode
-{
-    void* data;
-    llistnode* next;
-
-} llistnode;
-
 typedef struct llist
 {
     size_t item_size;
@@ -21,6 +14,7 @@ typedef struct llist
     llistnode* tail;
 
 } llist;
+
 
 llist new_llist(size_t item_size);
 
