@@ -4,6 +4,10 @@
 
 #include "../include/llistcore.h"
 
+
+/* Non-API code. (unaccessible externally) */
+
+
 typedef struct llistnode llistnode;
 
 typedef struct llistnode
@@ -24,6 +28,20 @@ llistnode new_llnode(void* data)
 }
 
 
+void deletenodes(llistnode* node)
+{
+    if(node->next)
+    {
+        deletenodes(node->next);
+    }
+
+    free(node);
+}
+
+
+/* API code. (accessible externally) */
+
+
 llist new_llist(size_t item_size)
 {
     llist new_llist;
@@ -37,9 +55,75 @@ llist new_llist(size_t item_size)
 }
 
 
-int lllen(llist* list)
+void deletellist(llist* list)
 {
-    return list->len;
+    deletenodes(list->head);
+    free(list);
+}
+
+
+int llinsert(llist* list, void* data, int index)
+{
+    if(!list || !data || list->len < index+1) { return 1; }
+
+    int item_size = list->item_size;
+    void* new_data = malloc(item_size);
+    if(!new_data) { return 1; }
+    memcpy(new_data, data, item_size);
+
+    llistnode* new_node = malloc(sizeof(llistnode));
+
+    switch(index)
+    {
+    case 0:
+        new_node->next = list->head;
+        list->head = new_node;
+        break;
+
+    default:
+        llistnode* previous_node = list->head;
+        for(int i = 1; i < index; i++)
+        {
+            previous_node = previous_node->next;
+        }
+
+        new_node->next = previous_node->next;
+        previous_node->next = new_node;
+    }
+
+    new_node->data = new_data;
+    list->len++;
+    return 0;
+}
+
+int llappend(llist* list, void* data)
+{
+    if(!list || !data) { return 1; }
+    size_t item_size = list->item_size;
+
+    void* new_data = malloc(item_size);
+    if(!new_data) { return 1; }
+    memcpy(new_data, data, item_size);
+
+    llistnode* new_node = malloc(sizeof(llistnode));
+    if(!new_node) {free(new_data); return 1; }
+    *new_node = new_llnode(new_data);
+
+    switch(list->len)
+    {
+    case 0:
+        list->head = new_node;
+        break;
+
+    default:
+        list->tail->next = new_node;
+        break;
+    }
+    list->tail = new_node;
+
+    list->len++;
+    return 0;
+
 }
 
 
@@ -59,6 +143,32 @@ void* llgetindex(llist* list, int index)
 
     memcpy(data, node->data, item_size);
     return data;
+}
+
+
+void* llgethead(llist* list)
+{
+    if(!list || !list->head) { return NULL; }
+
+    size_t item_size = list->item_size;
+    void* new_data = malloc(item_size);
+    if(!new_data) { return NULL; }
+    memcpy(new_data, list->head->data, item_size);
+
+    return new_data;
+}
+
+
+void* llgettail(llist* list)
+{
+    if(!list || !list->tail) { return NULL; }
+
+    size_t item_size = list->item_size;
+    void* new_data = malloc(item_size);
+    if(!new_data) { return NULL; }
+    memcpy(new_data, list->tail->data, item_size);
+
+    return new_data;
 }
 
 
@@ -97,110 +207,8 @@ int lldeleteindex(llist* list, int index)
 }
 
 
-int llinsert(llist* list, void* data, int index)
+int lllen(llist* list)
 {
-    if(!list || !data || list->len < index+1) { return 1; }
-
-    int item_size = list->item_size;
-    void* new_data = malloc(item_size);
-    if(!new_data) { return 1; }
-    memcpy(new_data, data, item_size);
-
-    llistnode* new_node = malloc(sizeof(llistnode));
-
-    switch(index)
-    {
-    case 0:
-        new_node->next = list->head;
-        list->head = new_node;
-        break;
-
-    default:
-        llistnode* previous_node = list->head;
-        for(int i = 1; i < index; i++)
-        {
-            previous_node = previous_node->next;
-        }
-
-        new_node->next = previous_node->next;
-        previous_node->next = new_node;
-    }
-
-    new_node->data = new_data;
-    list->len++;
-    return 0;
+    return list->len;
 }
 
-
-void deletenodes(llistnode* node)
-{
-    if(node->next)
-    {
-        deletenodes(node->next);
-    }
-
-    free(node);
-}
-
-
-void deletellist(llist* list)
-{
-    deletenodes(list->head);
-    free(list);
-}
-
-
-int llappend(llist* list, void* data)
-{
-    if(!list || !data) { return 1; }
-    size_t item_size = list->item_size;
-
-    void* new_data = malloc(item_size);
-    if(!new_data) { return 1; }
-    memcpy(new_data, data, item_size);
-
-    llistnode* new_node = malloc(sizeof(llistnode));
-    if(!new_node) {free(new_data); return 1; }
-    *new_node = new_llnode(new_data);
-
-    switch(list->len)
-    {
-    case 0:
-        list->head = new_node;
-        break;
-
-    default:
-        list->tail->next = new_node;
-        break;
-    }
-    list->tail = new_node;
-
-    list->len++;
-    return 0;
-
-}
-
-
-void* llgethead(llist* list)
-{
-    if(!list || !list->head) { return NULL; }
-
-    size_t item_size = list->item_size;
-    void* new_data = malloc(item_size);
-    if(!new_data) { return NULL; }
-    memcpy(new_data, list->head->data, item_size);
-
-    return new_data;
-}
-
-void* llgettail(llist* list)
-{
-    if(!list || !list->tail) { return NULL; }
-
-    size_t item_size = list->item_size;
-    void* new_data = malloc(item_size);
-    if(!new_data) { return NULL; }
-    memcpy(new_data, list->tail->data, item_size);
-
-    return new_data;
-}
