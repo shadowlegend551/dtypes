@@ -16,23 +16,23 @@ void print_llist(llist* list)
 int main()
 {
     llistnode* node;
-    llist list = new_llist(sizeof(int));
+    llist* list = new_llist(sizeof(int));
     int i = 9;
     int* data;
 
-    llappend(&list, &i);
+    llappend(list, &i);
     i--;
-    llappend(&list, &i);
+    llappend(list, &i);
     i--;
-    llinsert(&list, &i, 1);
+    llinsert(list, &i, 1);
 
-    lldeleteindex(&list, 2);
+    lldeleteindex(list, 2);
 
-    print_llist(&list);
+    print_llist(list);
 
-    data = llgethead(&list);
+    data = llgethead(list);
     printf("%d\n", *data);
-    data = llgettail(&list);
+    data = llgettail(list);
     printf("%d\n", *data);
 
 

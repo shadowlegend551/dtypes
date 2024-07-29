@@ -16,8 +16,8 @@ typedef struct llist
 } llist;
 
 
-// Returns a new empty linked list.
-llist new_llist(size_t item_size);
+// Returns a pointer to a new empty linked list.
+llist* new_llist(size_t item_size);
 
 // Deletes a linked list along with its nodes.
 void deletellist(llist* list);
