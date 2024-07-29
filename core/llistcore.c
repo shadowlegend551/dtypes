@@ -35,6 +35,7 @@ void deletenodes(llistnode* node)
         deletenodes(node->next);
     }
 
+    free(node->data);
     free(node);
 }
 
@@ -192,6 +193,7 @@ int lldeleteindex(llist* list, int index)
         }
         llistnode* node_to_delete = node->next;
         node->next = node_to_delete->next;
+        free(node_to_delete->data);
         free(node_to_delete);
 
         // If the last cell was deleted, change list->tail.
