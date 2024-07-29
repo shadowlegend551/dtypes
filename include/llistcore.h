@@ -30,5 +30,9 @@ void deletellist(llist* list);
 
 int llappend(llist* list, void* data);
 
+void* llgethead(llist* list);
+
+void* llgettail(llist* llist);
+
 #endif
 

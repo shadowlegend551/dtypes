@@ -30,6 +30,12 @@ int main()
 
     print_llist(&list);
 
+    data = llgethead(&list);
+    printf("%d\n", *data);
+    data = llgettail(&list);
+    printf("%d\n", *data);
+
+
     return 0;
 }
 

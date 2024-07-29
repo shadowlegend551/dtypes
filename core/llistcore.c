@@ -180,3 +180,27 @@ int llappend(llist* list, void* data)
 
 }
 
+
+void* llgethead(llist* list)
+{
+    if(!list || !list->head) { return NULL; }
+
+    size_t item_size = list->item_size;
+    void* new_data = malloc(item_size);
+    if(!new_data) { return NULL; }
+    memcpy(new_data, list->head->data, item_size);
+
+    return new_data;
+}
+
+void* llgettail(llist* list)
+{
+    if(!list || !list->tail) { return NULL; }
+
+    size_t item_size = list->item_size;
+    void* new_data = malloc(item_size);
+    if(!new_data) { return NULL; }
+    memcpy(new_data, list->tail->data, item_size);
+
+    return new_data;
+}
