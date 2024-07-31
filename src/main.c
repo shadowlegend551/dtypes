@@ -1,7 +1,7 @@
 #include <stdio.h>
 
-#include "../include/llistcore.h"
-#include "../include/llistwrappers.h"
+#include "../include/dtypes.h"
+#include "../include/wrappers.h"
 
 
 void print_llist(llist* list)
