@@ -216,3 +216,25 @@ int lllen(llist* list)
     return list->len;
 }
 
+
+llist* llconcat(llist* list1, llist* list2)
+{
+    if(!list1 || !list2) { return NULL; }
+
+    llist* new_list = new_llist(list1->item_size);
+    if(!new_list) { return NULL; }
+
+    // Copy first list to new list.
+    new_list->head = list1->head;
+    new_list->tail = list1->tail;
+
+    // Tie together new lists last index to second lists first.
+    new_list->tail->next = list2->head;
+    new_list->tail = list2->tail;
+
+    new_list->len = list1->len + list2->len;
+
+    return new_list;
+
+}
+

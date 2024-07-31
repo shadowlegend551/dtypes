@@ -5,7 +5,6 @@
 
 void print_llist(llist* list)
 {
-    printf("%d\n", lllen(list));
     for(int i = 0; i < list->len; i++)
     {
         printf("%d\n", *(int*)llgetindex(list, i));
@@ -15,7 +14,6 @@ void print_llist(llist* list)
 
 int main()
 {
-    llistnode* node;
     llist* list = new_llist(sizeof(int));
     int i = 9;
     int* data;
@@ -24,17 +22,24 @@ int main()
     i--;
     llappend(list, &i);
     i--;
-    llinsert(list, &i, 1);
-
-    lldeleteindex(list, 2);
+    llappend(list, &i);
 
     print_llist(list);
 
-    data = llgethead(list);
-    printf("%d\n", *data);
-    data = llgettail(list);
-    printf("%d\n", *data);
+    llist* list2 = new_llist(sizeof(int));
+    int i2 = 6;
+    int* data2;
 
+    llappend(list2, &i2);
+    i2--;
+    llappend(list2, &i2);
+    i2--;
+    llappend(list2, &i2);
+
+    print_llist(list2);
+
+    llist* list3 = llconcat(list, list2);
+    print_llist(list3);
 
     return 0;
 }

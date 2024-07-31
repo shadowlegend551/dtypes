@@ -43,5 +43,8 @@ int lldeleteindex(llist* list, int index);
 // Returns the length of a linked list.
 int lllen(llist* list);
 
+// Concatenates two lists and returns the resulting list.
+llist* llconcat(llist* list1, llist* list2);
+
 #endif
 
