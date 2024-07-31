@@ -2,5 +2,5 @@ int
 char
 float
 double
-ptr
+ptr,void*
 

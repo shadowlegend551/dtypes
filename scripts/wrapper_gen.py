@@ -16,7 +16,7 @@ def main():
 
     args = sys.argv[1:]
     if len(args) != 3:
-        return f'Invalid amount of arguments. Excpected 3, got {len(args)}.'
+        return f'Invalid amount of arguments. Expected 3, got {len(args)}.'
 
     type_name = args.pop(0)
     print(f'Type name is: {type_name}.')
@@ -39,6 +39,8 @@ def main():
 
     with open(type_file, 'r') as file:
         types = [x for x in file.read().split('\n') if x != '']
+    for i in range(len(types)):
+        types[i] = types[i].split(',') if ',' in types[i] else [types[i]]
 
     # Write the c file.
     cfile = 'wrappers/'+type_name+'wrappers.c'
@@ -55,7 +57,8 @@ def main():
         print('Writing functions...')
         for block in template_list:
             for t in types:
-                file.write(block.replace('<t>', t).replace('<T>', t.upper()))
+                file.write(block.replace('<t>', t[0])
+                                .replace('<T>', t[-1]))
                 file.write('\n')
 
     print(f'Finished writing file: {cfile}.')
@@ -80,7 +83,8 @@ def main():
 
         for signature in signatures:
             for t in types:
-                file.write(signature.replace('<t>', t).replace('<T>', t.upper())+';\n')
+                file.write(signature.replace('<t>', t[0])
+                                    .replace('<T>', t[-1])+';\n')
         file.write('#endif')
 
     print(f'Finished writing file: {hfile}.')
