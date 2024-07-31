@@ -1,18 +1,46 @@
 #include <stdlib.h>
 #include "../include/llistcore.h"
-#include "../include//llistwrappers.h"
+#include "../include/llistwrappers.h"
 ###
-int llappend<t>(const llnode* rootnode, <t> data)
+llist* new_llist_<T>(void)
 {
-    <t>* dataptr = malloc(<T>_SIZE);
-    if(!dataptr) { return 0; }
-    *dataptr = data;
-
-    llappend(rootnode, dataptr, <T>_SIZE);
-    return 1;
+    return new_llist(sizeof(<t>));
 }
 ###
-<t> llget<t>(const llnode* rootnode, int i)
+int llinsert_<T>(llist* list, <t> data, int index)
 {
-    return *(<t>*)llgetatindex(rootnode, <T>_SIZE, i);
+    return llinsert(list, &data, index);
+}
+###
+
+
+int llappend_<T>(llist* list, <t> data)
+{
+    return llappend(list, &data);
+}
+
+
+###
+<t> llgetindex_<T>(llist* list, int index)
+{
+    <t>* new_data_ptr = llgetindex(list, index);
+    <t> new_data = *new_data_ptr;
+    free(new_data_ptr);
+    return new_data;
+}
+###
+<t> llgethead_<T>(llist* list)
+{
+    <t>* new_data_ptr = llgethead(list);
+    <t> new_data = *new_data_ptr;
+    free(new_data_ptr);
+    return new_data;
+}
+###
+<t> llgettail_<T>(llist* list)
+{
+    <t>* new_data_ptr = llgettail(list);
+    <t> new_data = *new_data_ptr;
+    free(new_data_ptr);
+    return new_data;
 }
