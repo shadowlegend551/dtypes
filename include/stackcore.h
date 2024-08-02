@@ -3,4 +3,12 @@
 
 typedef struct stacknode stacknode;
 
+typedef struct stack
+{
+    size_t item_size;
+
+    stacknode* base;
+    stacknode* head;
+}
+
 #endif
