@@ -3,6 +3,7 @@
 #include <string.h>
 
 #include "../cinclude/llistcore.h"
+#include "../include/aux.h"
 
 
 /* Non-API code. (unaccessible externally) */
@@ -69,10 +70,7 @@ int llinsert(llist* list, void* data, int index)
 {
     if(!list || !data || list->len < index+1) { return 1; }
 
-    int item_size = list->item_size;
-    void* new_data = malloc(item_size);
-    if(!new_data) { return 1; }
-    memcpy(new_data, data, item_size);
+    void* new_data = copy_data(data, list->len);
 
     llistnode* new_node = malloc(sizeof(llistnode));
 

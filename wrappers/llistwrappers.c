@@ -1,8 +1,8 @@
 // This file was automatically generated.
 
 #include <stdlib.h>
-#include "../include/llistcore.h"
-#include "../include/llistwrappers.h"
+#include "../cinclude/llistcore.h"
+#include "../winclude/llistwrappers.h"
 llist* new_llist_int(void)
 {
     return new_llist(sizeof(int));

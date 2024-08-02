@@ -9,6 +9,6 @@ typedef struct stack
 
     stacknode* base;
     stacknode* head;
-}
+} stack;
 
 #endif
