@@ -1,6 +1,6 @@
 #include <stdlib.h>
 
-#include "../include/stackcore.h"
+#include "../cinclude/stackcore.h"
 
 
 /* Non-API code. */

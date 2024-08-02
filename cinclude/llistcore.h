@@ -1,8 +1,6 @@
 #ifndef LLISTCORE_H
 #define LLISTCORE_H
 
-#include "typesize.h"
-
 typedef struct llistnode llistnode;
 
 typedef struct llist

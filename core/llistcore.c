@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "../include/llistcore.h"
+#include "../cinclude/llistcore.h"
 
 
 /* Non-API code. (unaccessible externally) */
