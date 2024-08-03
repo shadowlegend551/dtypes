@@ -175,6 +175,7 @@ int lldeleteindex(llist* list, int index)
     {
     case 0:
         list->head = node->next;
+        free(node->data);
         free(node);
         break;
 
