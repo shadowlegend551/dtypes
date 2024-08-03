@@ -68,10 +68,15 @@ void deletellist(llist* list)
 
 int llinsert(llist* list, void* data, int index)
 {
-    if(!list || !data || list->len < index+1) { return 1; }
+    if(!list || !data, index > list->len) { return 1; }
 
-    void* new_data = copy_data(data, list->len);
+    if(index == list->len)
+    {
+        // Inserting to last index is the same as appending.
+        return llappend(list, data);
+    }
 
+    void* new_data = copy_data(data, list->item_size);
     llistnode* new_node = malloc(sizeof(llistnode));
 
     switch(index)
@@ -100,11 +105,8 @@ int llinsert(llist* list, void* data, int index)
 int llappend(llist* list, void* data)
 {
     if(!list || !data) { return 1; }
-    size_t item_size = list->item_size;
 
-    void* new_data = malloc(item_size);
-    if(!new_data) { return 1; }
-    memcpy(new_data, data, item_size);
+    void* new_data = copy_data(data, list->item_size);
 
     llistnode* new_node = malloc(sizeof(llistnode));
     if(!new_node) {free(new_data); return 1; }
@@ -133,16 +135,13 @@ void* llgetindex(llist* list, int index)
     if(list->len < index+1) { return NULL; }
     llistnode* node = list->head;
 
-    int item_size = list->item_size;
-    void* data = malloc(item_size);
-    if(!data) { return NULL; }
- 
     for(int i = 0; i < index; i++)
     {
         node = node->next;
     }
 
-    memcpy(data, node->data, item_size);
+    void* data = copy_data(node->data, list->item_size);
+
     return data;
 }
 
@@ -151,12 +150,9 @@ void* llgethead(llist* list)
 {
     if(!list || !list->head) { return NULL; }
 
-    size_t item_size = list->item_size;
-    void* new_data = malloc(item_size);
-    if(!new_data) { return NULL; }
-    memcpy(new_data, list->head->data, item_size);
+    void* data = copy_data(list->head->data, list->item_size);
 
-    return new_data;
+    return data;
 }
 
 
@@ -164,12 +160,9 @@ void* llgettail(llist* list)
 {
     if(!list || !list->tail) { return NULL; }
 
-    size_t item_size = list->item_size;
-    void* new_data = malloc(item_size);
-    if(!new_data) { return NULL; }
-    memcpy(new_data, list->tail->data, item_size);
+    void* data = copy_data(list->tail->data, list->item_size);
 
-    return new_data;
+    return data;
 }
 
 

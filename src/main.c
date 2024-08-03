@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 #include "../include/dtypes.h"
-#include "../include/wrappers.h"
+#include "../winclude/wrappers.h"
 
 
 void print_llist(llist* list)
@@ -21,11 +21,10 @@ int main()
 
     llappend_int(list, i);
     i--;
-    llappend_int(list, i);
-    i--;
     llinsert_int(list, i, 1);
+    i--;
 
-    printf("%d, %d\n", llgethead_int(list), llgettail_int(list));
+    printf("%d,%d\n", llgethead_int(list), llgettail_int(list));
 
     return 0;
 }
