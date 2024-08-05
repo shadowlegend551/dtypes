@@ -49,6 +49,7 @@ llist* new_llist(size_t item_size)
     llist* new_llist = malloc(sizeof(llist));
     if(!new_llist) { return NULL; }
 
+
     new_llist->item_size = item_size;
     new_llist->len = 0;
     new_llist->head = NULL;

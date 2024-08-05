@@ -9,7 +9,7 @@ typedef struct stack
 
     int len;
     stacknode* base;
-    stacknode* head;
+    stacknode* top;
 
 } stack;
 
