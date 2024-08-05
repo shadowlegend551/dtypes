@@ -7,8 +7,12 @@ typedef struct stack
 {
     size_t item_size;
 
+    int len;
     stacknode* base;
     stacknode* head;
+
 } stack;
+
+stack* new_stack(size_t item_size);
 
 #endif
