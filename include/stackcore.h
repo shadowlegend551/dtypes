@@ -3,7 +3,7 @@
 
 typedef struct stacknode stacknode;
 
-typedef struct stack
+typedef struct Stack
 {
     size_t item_size;
 
@@ -11,8 +11,10 @@ typedef struct stack
     stacknode* base;
     stacknode* top;
 
-} stack;
+} Stack;
 
-stack* new_stack(size_t item_size);
+Stack* new_stack(size_t item_size);
+
+void deletestack(Stack* stack);
 
 #endif

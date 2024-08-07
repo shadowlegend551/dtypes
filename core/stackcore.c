@@ -11,9 +11,9 @@ typedef struct stacknode
 
 } stacknode;
 
-stack* new_stack(size_t item_size)
+Stack* new_stack(size_t item_size)
 {
-    stack* new_stack = malloc(sizeof(stack));
+    Stack* new_stack = malloc(sizeof(Stack));
     if(!new_stack) { return NULL; }
 
 
