@@ -1,4 +1,4 @@
 bin/main
 build/*.o
-src/
+src/main.c
 
