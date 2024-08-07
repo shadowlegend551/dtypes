@@ -1,9 +1,9 @@
 #ifndef DTYPES_H
 #define DTYPES_H
 
-#include "../cinclude/llistcore.h"
+#include "../include/llistcore.h"
 #include "../winclude/llistwrappers.h"
-#include "../cinclude/stackcore.h"
+#include "../include/stackcore.h"
 
 //#ifdef WRAPPERS
 //#include "llistwrappers.h"

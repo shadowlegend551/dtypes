@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "../cinclude/llistcore.h"
+#include "../include/llistcore.h"
 #include "../include/aux.h"
 
 
