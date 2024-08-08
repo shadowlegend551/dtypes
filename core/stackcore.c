@@ -71,6 +71,7 @@ int spush(Stack* stack, void* data)
 
     stacknode* new_node = new_stacknode(new_data);
     if(!new_node) { free(new_data); return 1; }
+    new_node->data = new_data;
 
     switch(stack->len)
     {
@@ -97,10 +98,12 @@ void* spop(Stack* stack)
     stacknode* popped_node = stack->tail;
     stack->tail = popped_node->previous;
 
+
     void* new_data = copy_data(popped_node->data, sizeof(stack->item_size));
     if(!new_data) { return NULL; }
     free(popped_node->data); free(popped_node);
 
+    stack->len--;
     return new_data;
 }
 
