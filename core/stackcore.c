@@ -107,3 +107,18 @@ void* spop(Stack* stack)
     return new_data;
 }
 
+
+
+void* sgethead(Stack* stack)
+{
+    void* data = copy_data(stack->head->data, stack->item_size);
+    return data ? data : NULL;
+}
+
+
+void* sgettail(Stack* stack)
+{
+    void* data = copy_data(stack->tail->data, stack->item_size);
+    return data ? data : NULL;
+}
+
