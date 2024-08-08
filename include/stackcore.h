@@ -8,8 +8,8 @@ typedef struct Stack
     size_t item_size;
 
     int len;
-    stacknode* base;
-    stacknode* top;
+    stacknode* head;
+    stacknode* tail;
 
 } Stack;
 
