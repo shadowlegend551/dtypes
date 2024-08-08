@@ -6,8 +6,8 @@ import sys
 
 
 def main():
-    if not os.path.isdir('include'):
-        return 'No folder called include.'
+    if not os.path.isdir('winclude'):
+        return 'No folder called winclude.'
     print('Found include folder.')
 
     if not os.path.isdir('wrappers'):
@@ -74,7 +74,7 @@ def main():
         signatures.append(signature.strip())
 
     # Write the header file.
-    hfile = 'include/'+type_name+'wrappers.h'
+    hfile = 'winclude/'+type_name+'wrappers.h'
     with open(hfile, 'w') as file:
         print(f'Started writing file: {hfile}.')
         file.write('// This file was automatically generated.\n\n')
