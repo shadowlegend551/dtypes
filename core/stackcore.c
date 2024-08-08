@@ -122,3 +122,9 @@ void* sgettail(Stack* stack)
     return data ? data : NULL;
 }
 
+
+int slen(Stack* stack)
+{
+    return stack->len;
+}
+
