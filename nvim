@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include "../include/stackcore.h"
+#include "../winclude/stackcore.h"
 #include "../winclude/stackwrappers.h"
 ###
 Stack* new_stack_<T>(void)
@@ -7,7 +7,7 @@ Stack* new_stack_<T>(void)
     return new_stack(sizeof(<t>));
 }
 ###
-int spush_<T>(Stack* stack, <t> data)
+int spush_<T>(Stack* stack, <t> data);
 {
     return spush(stack, &data);
 }

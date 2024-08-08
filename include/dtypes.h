@@ -4,6 +4,7 @@
 #include "../include/llistcore.h"
 #include "../winclude/llistwrappers.h"
 #include "../include/stackcore.h"
+#include "../winclude/stackwrappers.h"
 
 //#ifdef WRAPPERS
 //#include "llistwrappers.h"
