@@ -26,10 +26,10 @@ int spush(Stack* stack, void* data);
 void* spop(Stack* stack);
 
 // Returns the topmost data from stack without deleting it.
-void* sgettop(Stack* stack);
+void* sgethead(Stack* stack);
 
 // Gets the bottommost data.
-void* sgetbase(Stack* stack);
+void* sgettail(Stack* stack);
 
 // Returns the length (height) of a stack.
 int sgetlen(Stack* stack);
