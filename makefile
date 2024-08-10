@@ -1,5 +1,5 @@
 CC := gcc
-CFLAGS := -lm
+CFLAGS := -lm -I./include
 
 SRC_DIR := src
 CORE_DIR := core
