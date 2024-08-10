@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "../include/llistcore.h"
-#include "../include/aux.h"
+#include "aux.h"
+#include "core/llistcore.h"
 
 
 /* Non-API code. (unaccessible externally) */

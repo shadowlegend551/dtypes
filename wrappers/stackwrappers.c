@@ -1,8 +1,8 @@
 // This file was automatically generated.
 
 #include <stdlib.h>
-#include "../include/stackcore.h"
-#include "../winclude/stackwrappers.h"
+#include "core/stackcore.h"
+#include "wrappers/stackwrappers.h"
 Stack* new_stack_int(void)
 {
     return new_stack(sizeof(int));

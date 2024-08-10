@@ -1,7 +1,7 @@
 #include <stdlib.h>
 
-#include "../include/aux.h"
-#include "../include/stackcore.h"
+#include "aux.h"
+#include "core/stackcore.h"
 
 
 /* Non-API code. */

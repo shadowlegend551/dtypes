@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "../include/queuecore.h"
+#include "core/queuecore.h"
 
 #define DEFAULT_MAX_SIZE 2048
 
