@@ -1,6 +1,7 @@
+stack###
 #include <stdlib.h>
-#include "../include/stackcore.h"
-#include "../winclude/stackwrappers.h"
+#include "core/<n>core.h"
+#include "wrappers/<n>wrappers.h"
 ###
 Stack* new_stack_<T>(void)
 {

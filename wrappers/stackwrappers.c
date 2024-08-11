@@ -1,5 +1,4 @@
 // This file was automatically generated.
-
 #include <stdlib.h>
 #include "core/stackcore.h"
 #include "wrappers/stackwrappers.h"

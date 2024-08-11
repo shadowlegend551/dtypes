@@ -1,6 +1,7 @@
+llist###
 #include <stdlib.h>
-#include "../include/llistcore.h"
-#include "../include/llistwrappers.h"
+#include "core/<n>core.h"
+#include "wrappers/<n>wrappers.h"
 ###
 llist* new_llist_<T>(void)
 {
