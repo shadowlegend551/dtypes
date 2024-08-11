@@ -5,76 +5,97 @@ import os
 import sys
 
 
+# Constants.
+SRC_POSTFIX = 'wrappers.c'
+INCLUDE_POSTFIX = 'wrappers.h'
+INCLUDE_DIR = 'include/wrappers/'
+WRAPPER_DIR = 'wrappers/'
+TEMPLATE_DIR = 'scripts/templates/'
+TYPE_FILE = 'scripts/types.t'
+ARGS_AMOUNT = 1
+
+# Lists.
+DIRECTORIES = [
+    INCLUDE_DIR,
+    WRAPPER_DIR,
+    TEMPLATE_DIR
+]
+
+FILES = [
+    TYPE_FILE
+]
+
+
+def confirmDirectoryExists(directory: str) -> bool | str:
+    return True if os.path.isdir(directory) else f'No directory named "{directory}"'
+
+def confirmFileExists(file: str) -> bool | str:
+    return True if os.path.isfile(file) else f'No file named "{file}"'
+
+
+
 def main():
-    if not os.path.isdir('winclude'):
-        return 'No folder called winclude.'
-    print('Found include folder.')
+    # Parse arguments.
+    if len(sys.argv) != ARGS_AMOUNT+1:
+        return f'Invalid amount of arguments. Expected {ARGS_AMOUNT}, got {len(args)}.'
+    template_file = TEMPLATE_DIR+sys.argv[1]
+    FILES.append(template_file)
 
-    if not os.path.isdir('wrappers'):
-        return 'No folder called wrappers.'
-    print('Found wrapper folder.')
 
-    args = sys.argv[1:]
-    if len(args) != 3:
-        return f'Invalid amount of arguments. Expected 3, got {len(args)}.'
+    # Confirm that all required files and directories exist.
+    for dir in DIRECTORIES:
+        if (dir_status:=confirmDirectoryExists(dir)) != True:
+            return dir_status
+        print(f'Found directory "{dir}"')
 
-    type_name = args.pop(0)
-    print(f'Type name is: {type_name}.')
+    for file in FILES:
+        if (file_status:=confirmFileExists(template_file)) != True:
+            return file_status
+        print(f'found file "{file}"')
+
 
     # Read the template file.
-    template_file = 'scripts/templates/' + args.pop(0)
-    if not os.path.isfile(template_file):
-        return f'No template file "{template_file}"'
-    print(f'Found template file: {template_file}.')
-
     with open(template_file, 'r') as file:
-        template_list = [x.strip() for x in file.read().split('###')]
-    header = template_list.pop(0)
+        function_templates = [x.strip() for x in file.read().split('###')]
+    type_name = function_templates.pop(0)
+    header    = function_templates.pop(0).replace('<n>', type_name)
 
     # Read the type file.
-    type_file = 'scripts/' + args.pop(0)
-    if not os.path.isfile(type_file):
-        return f'No type file "{type_file}"'
-    print(f'Found type file: {type_file}.')
-
-    with open(type_file, 'r') as file:
+    with open(TYPE_FILE, 'r') as file:
         types = [x for x in file.read().split('\n') if x != '']
     for i in range(len(types)):
-        types[i] = types[i].split(',') if ',' in types[i] else [types[i]]
+        types[i] = types[i].split(',') if ',' in types[i] else [types[i], types[i]]
 
-    # Write the c file.
-    cfile = 'wrappers/'+type_name+'wrappers.c'
-    with open(cfile, 'w') as file:
-        print(f'Started writing file: {cfile}.')
-        file.write('// This file was automatically generated.\n\n')
-        if header != '':
+    # Write the source file.
+    srcfile = WRAPPER_DIR + type_name + SRC_POSTFIX
+    with open(srcfile, 'w') as file:
+        print(f'Started writing file: {srcfile}.')
+        file.write('// This file was automatically generated.\n')
+
+        if len(header):
             print('Writing header...')
-            file.write(header)
-            file.write('\n')
+            file.write(header+'\n')
         else:
             print('No header specified, skipping...')
 
         print('Writing functions...')
-        for block in template_list:
+        for block in function_templates:
             for t in types:
                 file.write(block.replace('<t>', t[0])
-                                .replace('<T>', t[-1]))
+                                .replace('<T>', t[1]))
                 file.write('\n')
 
-    print(f'Finished writing file: {cfile}.')
+    print(f'Finished writing file: {srcfile}.')
 
     # Get function signatures for header file.
     signatures = []
     print('Getting function signature templates...')
-    for function in template_list:
-        function = list(function)
-        signature = ''
-        while function[0] != '{':
-            signature += function.pop(0)
+    for function in function_templates:
+        signature = function.split('{')[0]  # Discard the function definition.
         signatures.append(signature.strip())
 
     # Write the header file.
-    hfile = 'winclude/'+type_name+'wrappers.h'
+    hfile = INCLUDE_DIR + type_name + INCLUDE_POSTFIX
     with open(hfile, 'w') as file:
         print(f'Started writing file: {hfile}.')
         file.write('// This file was automatically generated.\n\n')
@@ -84,8 +105,8 @@ def main():
         for signature in signatures:
             for t in types:
                 file.write(signature.replace('<t>', t[0])
-                                    .replace('<T>', t[-1])+';\n')
-        file.write('#endif')
+                                    .replace('<T>', t[1]) +';\n')
+        file.write('#endif\n')
 
     print(f'Finished writing file: {hfile}.')
 

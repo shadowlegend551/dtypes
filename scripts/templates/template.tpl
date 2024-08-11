@@ -1,5 +1,6 @@
+type###
 #include <stdio.h>
-
+#include <<n>core.h>
 ###
 
 <t> printhello(char* target)
@@ -14,7 +15,7 @@
 ###     
 
 
-void print<t>hello(void)
+void print<T>hello(void)
 {
     printf("Hello <t>!");
 }
