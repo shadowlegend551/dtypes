@@ -9,11 +9,10 @@ BUILD_DIR := build
 TARGET_FILE := bin/main
 
 SRC_FILES := $(wildcard $(SRC_DIR)/*.c) $(wildcard $(CORE_DIR)/*.c) $(wildcard $(WRAPPER_DIR)/*.c)
-
 OBJ_FILES := $(patsubst %.c, $(BUILD_DIR)/%.o, $(notdir $(SRC_FILES)))
 
 $(TARGET_FILE): $(OBJ_FILES)
-	$(CC) $(INCLUDE_DIR) -o $@ $^ $(CFLAGS)
+	$(CC) -o $@ $^ $(CFLAGS)
 
 # Compile files from src/
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
