@@ -6,13 +6,11 @@ SRC_DIR := src
 CORE_DIR := core
 WRAPPER_DIR := wrappers
 BUILD_DIR := build
-TARGET_FILE := bin/main
+LIB := lib/dtypes.a
 
 SRC_FILES := $(wildcard $(SRC_DIR)/*.c) $(wildcard $(CORE_DIR)/*.c) $(wildcard $(WRAPPER_DIR)/*.c)
 OBJ_FILES := $(patsubst %.c, $(BUILD_DIR)/%.o, $(notdir $(SRC_FILES)))
 
-$(TARGET_FILE): $(OBJ_FILES)
-	$(CC) -o $@ $^ $(CFLAGS)
 
 # Compile files from src/
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
@@ -25,9 +23,13 @@ $(BUILD_DIR)/%.o: $(CORE_DIR)/%.c
 # Compile files from wrappers/
 $(BUILD_DIR)/%.o: $(WRAPPER_DIR)/%.c
 	$(CC) $(INCLUDE_DIR) -c $< -o $@
-f:
-	$(info $(OBJ_FILES))
 
-.PHONY: clean
+# Make the library.
+$(LIB): $(OBJ_FILES)
+	ar -rcs $@ $(OBJ_FILES)
+
+.PHONY: build lib clean
+lib: $(LIB)
 clean:
 	rm $(wildcard $(BUILD_DIR)/*.o)
+	rm $(LIB_NAME)

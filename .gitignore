@@ -1,4 +1,4 @@
-bin/main
+lib/dtypes.a
 build/*.o
 src/main.c
 
